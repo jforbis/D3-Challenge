@@ -24,9 +24,24 @@ let chartGroup = svg.append("g")
 // reading in my data
 d3.csv("assets/data/data.csv").then(function(data) {
     console.log(data);
-    // data.forEach(function(info) {
-    //     info.hours = +info.hours;
-    // });
+    data.forEach(function(info) {
+        info.hours = +info.hours;
+    });
+    let barSpacing = 10; 
+    let scaleY = 10; 
+
+    let barWidth = (width - (barSpacing * (data.length - 1))) / data.length;
+
+    // Create code to build the bar chart using the data.
+    chartGroup.selectAll(".bar")
+        .data(data)
+        .enter()
+        .append("rect")
+        .classed("bar", true)
+        .attr("width", d => width)
+        // .attr("height", d => d.hours * scaleY)
+        .attr("x", (d, i) => i * (barWidth + barSpacing))
+        // .attr("y", d => chartHeight - d.hours * scaleY);
 }).catch(function(error) {
     console.log(error);
 });
