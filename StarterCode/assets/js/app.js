@@ -13,7 +13,7 @@ let width = svgwidth - margin.left - margin.right;
 let height = svgheight - margin.top - margin.bottom;
 
 let svg = d3
-    .select("body")
+    .select("#scatter")
     .append("svg")
     .attr("height", svgheight)
     .attr("width", svgwidth);
@@ -26,69 +26,68 @@ let chosenXAxis = "poverty";
 
 // function used for updating x-scale var upon click on axis label
 function xScale(data, chosenXAxis) {
-// create scales
-let xLinearScale = d3.scaleLinear()
-    .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
-    d3.max(data, d => d[chosenXAxis]) * 1.2
-    ])
-    .range([0, width]);
+    // create scales
+    let xLinearScale = d3.scaleLinear()
+        .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
+        d3.max(data, d => d[chosenXAxis]) * 1.2
+        ])
+        .range([0, width]);
 
-return xLinearScale;
-
+    return xLinearScale;
 }
 
 // function used for updating xAxis var upon click on axis label
 function renderAxes(newXScale, xAxis) {
-let bottomAxis = d3.axisBottom(newXScale);
+    let bottomAxis = d3.axisBottom(newXScale);
 
-xAxis.transition()
-    .duration(1000)
-    .call(bottomAxis);
+    xAxis.transition()
+        .duration(1000)
+        .call(bottomAxis);
 
-return xAxis;
+    return xAxis;
 }
 
 // function used for updating circles group with a transition to
 // new circles
 function renderCircles(circlesGroup, newXScale, chosenXAxis) {
 
-circlesGroup.transition()
-    .duration(1000)
-    .attr("cx", d => newXScale(d[chosenXAxis]));
+    circlesGroup.transition()
+        .duration(1000)
+        .attr("cx", d => newXScale(d[chosenXAxis]));
 
-return circlesGroup;
+    return circlesGroup;
 }
 
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, circlesGroup) {
 
-var label;
+    let label;
 
-if (chosenXAxis === "poverty") {
-    label = "In Poverty %:";
-}
-else {
-    label = "Percentage of Smokers:";
-}
+    if (chosenXAxis === "poverty") {
+        label = "In Poverty %:";
+    }
+    else {
+        label = "Percentage of Smokers:";
+    }
 
-var toolTip = d3.tip()
-    .attr("class", "tooltip")
-    .offset([80, -60])
-    .html(function(d) {
-    return (`${d.abbr}<br>${label} ${d[chosenXAxis]}`);
-    });
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .offset([80, -60])
+        .html(function(d) {
+        return (`${d.abbr}<br>${label} ${d[chosenXAxis]}`);
+        });
 
-circlesGroup.call(toolTip);
+    circlesGroup.call(toolTip);
 
-circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data);
-})
-    // onmouseout event
-    .on("mouseout", function(data, index) {
-    toolTip.hide(data);
-    });
+    circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data);
+    })
+        // onmouseout event
+        .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+        });
 
-return circlesGroup;
+    return circlesGroup;
 }
 // reading in my data
 d3.csv("data.csv").then(function(stateData, err) {
@@ -164,8 +163,8 @@ d3.csv("data.csv").then(function(stateData, err) {
     .text("Lacks Healthcare (%)");
 
     // updateToolTip function above csv import
-    var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
-    console.log(circlesGroup);
+    // var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+    // console.log(circlesGroup);
 
     // x axis labels event listener
     labelsGroup.selectAll("text")
