@@ -90,7 +90,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     return circlesGroup;
 }
 // reading in my data
-d3.csv("data.csv").then(function(stateData, err) {
+d3.csv("assets/data/data.csv").then(function(stateData, err) {
     console.log(stateData);
     if (err) throw err;
 
