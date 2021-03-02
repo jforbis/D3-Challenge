@@ -145,12 +145,12 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
     .classed("active", true)
     .text("In Poverty (%)");
 
-    var healthcareLabel = labelsGroup.append("text")
+    var smokersLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
-    .attr("value", "healthcare") // value to grab for event listener
+    .attr("value", "smokers") // value to grab for event listener
     .classed("inactive", true)
-    .text("Lacks Healthcare (%)");
+    .text("(%) of Smokers");
 
     // todo: come back and figure out if this is correct
     // append y axis
@@ -196,7 +196,7 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
             povertyLabel
             .classed("active", true)
             .classed("inactive", false);
-            healthcareLabel
+            smokersLabel
             .classed("active", false)
             .classed("inactive", true);
         }
@@ -204,7 +204,7 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
             povertyLabel
             .classed("active", false)
             .classed("inactive", true);
-            healthcareLabel
+            smokersLabel
             .classed("active", true)
             .classed("inactive", false);
         }
