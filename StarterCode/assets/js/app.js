@@ -148,7 +148,7 @@ d3.csv("assets/data/data.csv").then(function(stateData, err) {
     var smokersLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
-    .attr("value", "smokers") // value to grab for event listener
+    .attr("value", "smokes") // value to grab for event listener
     .classed("inactive", true)
     .text("(%) of Smokers");
 
